@@ -1,5 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from src.services import CatalogService
+from src.logger import logger
+
+
+catalog_service = CatalogService()
 
 origins=["*"]
 app = FastAPI()
@@ -14,3 +19,9 @@ app.add_middleware(
 @app.get("/")
 async def main():
     return {"Hello": "World"}
+
+
+@app.get("/catalog")
+async def get_gatalog():
+    return catalog_service.get_catalog()
+
